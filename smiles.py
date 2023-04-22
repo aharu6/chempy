@@ -5,7 +5,7 @@ import pandas as pd
 import rdkit as rd
 
 #読み込み
-cf = pd.read_csv("/Users/aizawaharuka/Library/CloudStorage/OneDrive-学校法人明治薬科大学/春香/2023/AID_743240_datatable_all.csv")
+cf = pd.read_csv("AID_743240_datatable_all.csv")
 cf.head()
 print(cf.columns.to_list())
 cf = cf.drop(0)
@@ -18,4 +18,5 @@ print(cf2['PUBCHEM_EXT_DATASOURCE_SMILES'])
 
 #塩を除く
 cf3 = cf2.assign(smile_len = cf2['PUBCHEM_EXT_DATASOURCE_SMILES'].str.len())
-cf4 = cf3.groupby('PUBCHEM_RESULT_TAG').filter(axis = "index",like = cf3.groupby("PUBCHEM_RESULT_TAG")["smile_len"].max())
+cf4 = cf3.groupby('PUBCHEM_RESULT_TAG').apply(lambda x: x[x["smile_len"] == x["smile_len"].max()])
+cf4["PUBCHEM_EXT_DATASOURCE_SMILES"]
