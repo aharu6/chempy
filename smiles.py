@@ -27,5 +27,5 @@ cf5 = cf4.assign(molobj = cf4["PUBCHEM_EXT_DATASOURCE_SMILES"].apply(Chem.MolFro
 mollist = [x for x in cf5["molobj"] if x is not None]
 mollist = cf5["molobj"].to_list()
 #多すぎるのでとりあえず頭の８個だけ
-img=Draw.MolsToGridImage(mollist[:8],molsPerRow=4,subImgSize=(200,200))
+img=Draw.MolsToGridImage(mollist[:8],molsPerRow=4,subImgSize=(1200,1200))
 img.show()
