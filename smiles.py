@@ -20,3 +20,10 @@ print(cf2['PUBCHEM_EXT_DATASOURCE_SMILES'])
 cf3 = cf2.assign(smile_len = cf2['PUBCHEM_EXT_DATASOURCE_SMILES'].str.len())
 cf4 = cf3.groupby('PUBCHEM_RESULT_TAG').apply(lambda x: x[x["smile_len"] == x["smile_len"].max()])
 cf4["PUBCHEM_EXT_DATASOURCE_SMILES"]
+
+#molオブジェクトの生成
+from rdkit import Chem
+cf5 = cf4.assign(molobj = cf4["PUBCHEM_EXT_DATASOURCE_SMILES"].apply(Chem.MolFromSmiles))
+cf5["molobj"]
+
+#
